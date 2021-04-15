@@ -81,7 +81,7 @@ static void do_boot(struct boot_rsp *rsp)
     boot_platform_quit(vt);
 }
 
-int main(void)
+int bl2_main(void)
 {
     struct boot_rsp rsp;
     fih_int fih_rc = FIH_FAILURE;
@@ -118,7 +118,8 @@ int main(void)
     BOOT_LOG_INF("Bootloader chainload address offset: 0x%x",
                  rsp.br_image_off);
     BOOT_LOG_INF("Jumping to the first image slot");
-    do_boot(&rsp);
+    // do_boot(&rsp);
+    RM_MCUBOOT_PORT_BootApp(&rsp);
 
     BOOT_LOG_ERR("Never should get here");
     FIH_PANIC;
